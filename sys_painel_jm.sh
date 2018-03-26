@@ -20,7 +20,6 @@ status=$?
 #fi
 
 result_user_id=`mysql -h $dbHost --user=$dbUser --password=$dbPassword --skip-column-names -e "select id from a_user where user = ${user}"`
-
 result_senha_id=`mysql -h $dbHost --user=$dbUser --password=$dbPassword --skip-column-names -e "select txt_senha from a_user where user = ${result_user_id}"`
 
 if [ user=result_user_id ] && [ senha=result_senha_id ]; then
