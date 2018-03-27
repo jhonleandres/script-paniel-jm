@@ -36,7 +36,7 @@ if [ user=result_user_id ] && [ senha=result_senha_id ]; then
 		cat /etc/passwd | cut -d: -f1 | nl > /tmp/.usuario_lista
 
 		dialog --menu "Escolha uma opção abaixo" 10 30 3 \
-		"1" "Adicionar usuario" \
+		"1" "Pegar XML PDVs" \
 		"2" "remover usuarios" \
 		"3" "listar usuarios" 2> $OPCFILE
 		#O direcionamento do dialog padrao é o 2>!!
@@ -51,8 +51,12 @@ if [ user=result_user_id ] && [ senha=result_senha_id ]; then
 
 
 
-		listar (){
+		xmlzip (){
 		dialog --textbox /tmp/.usuario_lista 0 0
+		mkdir /tmp/xml
+		scp -r 192.168.1.91:/var/actus/history/201802*/ /tmp/xml
+		zip -r xml_pdvs_102018.zip /tmp/xml/*.xml
+		rm -rf /tmp/xml/*.xml
 		}
 
 		adicionar (){
@@ -93,7 +97,7 @@ if [ user=result_user_id ] && [ senha=result_senha_id ]; then
 
 		case $(cat $OPCFILE) in
 		1)
-		adicionar;;
+		xmlzip;;
 		2)
 		remover;;
 		3)
