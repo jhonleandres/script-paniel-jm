@@ -37,8 +37,8 @@ if [ user=result_user_id ] && [ senha=result_senha_id ]; then
 
 		dialog --menu "Escolha uma opção abaixo" 10 30 3 \
 		"1" "Pegar XML PDVs" \
-		"2" "remover usuarios" \
-		"3" "listar usuarios" 2> $OPCFILE
+		"2" "Sactus" \
+		"3" "Instalação do sistema PDVs && Retagurda" 2> $OPCFILE
 		#O direcionamento do dialog padrao é o 2>!!
 
 		case $? in
@@ -59,7 +59,21 @@ if [ user=result_user_id ] && [ senha=result_senha_id ]; then
 		rm -rf /tmp/xml/*.xml
 		}
 
-		adicionar (){
+
+		sactus (){
+		dialog --inputbox " Digite o nome do usuario a ser excluido" 7 50 2> $FDELUSER
+		DELUSER=$(cat $FDELUSER)
+		deluser $DELUSER
+
+		case $? in
+		0)
+		dialog --msgbox "O usuario foi excluido com sucesso! " 5 40 ;;
+		*)
+		dialog --msgbox "Nome do usuario incorreto ou inexistente " 5 30 ;;
+		esac
+		}
+
+		instalacao (){
 		dialog --inputbox "Digite o nome do novo usuário" 7 40 2> $NOMEUS
 		USERNAME=`cat $NOMEUS`
 
@@ -80,19 +94,6 @@ if [ user=result_user_id ] && [ senha=result_senha_id ]; then
 		else
 		dialog --msgbox "As senhas não conferem !!" 7 30
 		fi
-		}
-
-		remover (){
-		dialog --inputbox " Digite o nome do usuario a ser excluido" 7 50 2> $FDELUSER
-		DELUSER=$(cat $FDELUSER)
-		deluser $DELUSER
-
-		case $? in
-		0)
-		dialog --msgbox "O usuario foi excluido com sucesso! " 5 40 ;;
-		*)
-		dialog --msgbox "Nome do usuario incorreto ou inexistente " 5 30 ;;
-		esac
 		}
 
 		case $(cat $OPCFILE) in
