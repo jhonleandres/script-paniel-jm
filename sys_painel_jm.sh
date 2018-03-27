@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #
-#
+#http://rogerdudler.github.io/git-guide/index.pt_BR.html
 
 user=$(whiptail --title "Entrada de nome do usuário" --inputbox "Digite seu Usuário:" --fb 10 60 3>&1 1>&2 2>&3)
 statussaida=$?
